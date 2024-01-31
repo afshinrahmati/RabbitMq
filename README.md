@@ -26,6 +26,14 @@ Exchanges come in different types, each with its own routing algorithm:
 
 The exchange acts as a mediator between producers and queues, ensuring that messages are delivered to the appropriate destinations based on the defined routing rules. It abstracts the complexity of message routing from producers and allows for flexible and dynamic message routing within the system.
 
+## What is Channel:
+
+* In the context of message queue systems like RabbitMQ or Apache Kafka, a channel is a communication pathway or virtual connection between a client (producer or consumer) and a message broker (e.g., RabbitMQ server, Kafka broker). Channels are used to send and receive messages, manage acknowledgments, and control flow between the client and the message broker.
+In summary, channels play a crucial role in facilitating communication and message exchange between clients (producers and consumers) and message brokers in message . * queue systems, providing a level of abstraction and control over the underlying communication processes.
+You can use one Channel for everything. However, if you have multiple threads, it's suggested to use a different Channel for each thread
+
+
+## Dependency
 
 1. yarn add @types/express @types/node pm2 typescript
 
