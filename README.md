@@ -16,13 +16,13 @@ When a message is sent to an exchange, it doesn't immediately land in a queue. I
 
 Exchanges come in different types, each with its own routing algorithm:
 
-1. **Direct Exchange**: Routes messages to queues based on an exact match between the routing key and the binding key.
+1. **Direct Exchange**: Routes messages to queues based on an exact match between the routing key and the binding key. <set the name of the queue OneName>
 
-2. **Fanout Exchange**: Routes messages to all queues bound to it, regardless of the routing key.
+2. **Fanout Exchange**: Routes messages to all queues bound to it, regardless of the routing key.<set on all the queue>
 
-3. **Topic Exchange**: Routes messages to queues based on wildcard matching of the routing key.
+3. **Topic Exchange**: Routes messages to queues based on wildcard matching of the routing key.<set the names of the queue multiName>
 
-4. **Headers Exchange**: Routes messages based on message header attributes rather than the routing key.
+4. **Headers Exchange**: Routes messages based on message header attributes rather than the routing key.<set the names of the queue like json>
 
 The exchange acts as a mediator between producers and queues, ensuring that messages are delivered to the appropriate destinations based on the defined routing rules. It abstracts the complexity of message routing from producers and allows for flexible and dynamic message routing within the system.
 
