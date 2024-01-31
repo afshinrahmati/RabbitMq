@@ -36,6 +36,10 @@ You can use one Channel for everything. However, if you have multiple threads, i
 ## Dependency
 
 1. yarn add @types/express @types/node pm2 typescript
+2. install RabbitMq
+    2. for use in Javascript ==> npm install amqplib
+    2. for use in Golang ==> python3 -m pip install pika --upgrade
+    2. for use in python ==> go get github.com/rabbitmq/amqp091-go
 
 
 
