@@ -32,7 +32,20 @@ The exchange acts as a mediator between producers and queues, ensuring that mess
 In summary, channels play a crucial role in facilitating communication and message exchange between clients (producers and consumers) and message brokers in message . * queue systems, providing a level of abstraction and control over the underlying communication processes.
 You can use one Channel for everything. However, if you have multiple threads, it's suggested to use a different Channel for each thread
 
-
+## What is Plugin:
+* You can add some attribute like monitoring or additional AMQP ,...
+1) Management Plugin 
+    it is for monitoring and graphic envoirment 
+* if you want to active this you should first see all list plugin in rabbitmq
+1.1) docker exec 149<Id contianer> rabbitmq-plugins list
+1.2) docker exec 149 rabbitmq-plugins enable rabbitmq_management
+1.3) docker exec 149 rabbitmq-plugins list
+    * E==> the client active it.
+    * e==> the package for active is depended on other plugin and automatic rabbitmq Active it.
+1.4)  docker exec 149 rabbitmq-plugins list -v.
+1.5) docker exec 149 rabbitmq-plugins list -m 
+* For Disable:
+. docker exec 149 rabbitmq-plugins disable rabbitmq_management
 ## Dependency
 
 1. yarn add @types/express @types/node pm2 typescript
