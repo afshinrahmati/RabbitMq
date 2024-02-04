@@ -1,6 +1,8 @@
 import pika
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(host="localhost"))
+
+credentials = pika.PlainCredentials("afshin","123456")
+connection = pika.BlockingConnection(pika.ConnectionParameters(host="localhost",credentials=credentials))
 
 channel = connection.channel()
 # just send for One Consumer if you want send for any queue you should learn Exchnage

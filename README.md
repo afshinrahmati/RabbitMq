@@ -52,6 +52,18 @@ Virtual hosting is a method for hosting multiple domain names on a single server
 Default Virtual Host
     * hostName:"/"
     * username:"guest",pass:"guest"
+2) rabbitmqctl:
+* it is for  managing RabbitMq nodes   and add user ,....
+2.1) Add user in RabbitMq:
+*  docker exec 14 rabbitmqctl list_users
+for adding:
+1) u can go to localhost:15672 and step Admin and add user.
+2) docker exec 14 rabbitmqctl add_user "afshin" "1234".
+2) give Access_and_Permissions[https://www.rabbitmq.com/management.html] => docker exec 14 rabbitmqctl set_user_tags "afshin" administrator.
+2) give for which vHost ==> docker exec 14 rabbitmqctl set_permissions -p "/" "afshin" ".*" ".*" ".*" ==> 1) * ==> config ,Write,Read
+
+DELETE USER ==>
+1) docker exec 14 rabbitmqctl delete_yser "afshin" 
 ## Dependency
 
 1. yarn add @types/express @types/node pm2 typescript
