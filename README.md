@@ -46,6 +46,12 @@ You can use one Channel for everything. However, if you have multiple threads, i
 1.5) docker exec 149 rabbitmq-plugins list -m 
 * For Disable:
 . docker exec 149 rabbitmq-plugins disable rabbitmq_management
+
+## What is Vhost:
+Virtual hosting is a method for hosting multiple domain names on a single server. 
+Default Virtual Host
+    * hostName:"/"
+    * username:"guest",pass:"guest"
 ## Dependency
 
 1. yarn add @types/express @types/node pm2 typescript
