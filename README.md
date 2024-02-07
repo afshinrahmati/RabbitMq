@@ -47,6 +47,11 @@ You can use one Channel for everything. However, if you have multiple threads, i
 * For Disable:
 . docker exec 149 rabbitmq-plugins disable rabbitmq_management
 
+
+## What is Ack:
+when the consumer reciev the data from Queue say to producer i get it and you can delete it from your self
+* befor you dont set it in your code:
+    * docker exec 149 rabbitmqctl list_queues <the receiev should off>
 ## What is Vhost:
 Virtual hosting is a method for hosting multiple domain names on a single server. 
 Default Virtual Host
@@ -63,7 +68,16 @@ for adding:
 2) give for which vHost ==> docker exec 14 rabbitmqctl set_permissions -p "/" "afshin" ".*" ".*" ".*" ==> 1) * ==> config ,Write,Read
 
 DELETE USER ==>
-1) docker exec 14 rabbitmqctl delete_yser "afshin" 
+1) docker exec 14 rabbitmqctl delete_yser "afshin".
+## What is RoundRobin:
+it is look like the Load Balancing.
+it Distribution the request to multi service .
+## What is reply_to , correlation_id:
+Both of them shoudl set on header.
+1) reply_to==> it is indentify after the server get the request and the value where set on the queue.
+2) correlation_id ==> each request has unique Id that name is correlation Id.
+## What is reply_to , correlation_id:
+
 ## Dependency
 
 1. yarn add @types/express @types/node pm2 typescript
