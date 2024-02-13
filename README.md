@@ -57,6 +57,10 @@ Virtual hosting is a method for hosting multiple domain names on a single server
 Default Virtual Host
     * hostName:"/"
     * username:"guest",pass:"guest"
+rabbitmqctl add_user <username> <password>
+rabbitmqctl add_vhost my_vhost
+rabbitmqctl set_permissions -p <vhost_name> <username> ".*" ".*" ".*"
+
 2) rabbitmqctl:
 * it is for  managing RabbitMq nodes   and add user ,....
 2.1) Add user in RabbitMq:
