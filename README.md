@@ -9,7 +9,7 @@ it is an intermediary computer program that create communication between system 
 • Queues provide a way for different parts of a system to communicate asynchronously And decoupling the producer(those sending messages) and Consumers (those receiving and processing messages)
 
 ## What is Exchange:
-
+we are not send message on queue and we send message on Exchange  
 In the context of message queues, particularly in systems like RabbitMQ or Apache Kafka, an exchange is a fundamental component responsible for receiving messages from producers and routing them to message queues based on specific rules, known as bindings.
 
 When a message is sent to an exchange, it doesn't immediately land in a queue. Instead, the exchange examines the message's routing key and other properties, and then routes it to one or more queues based on rules defined by bindings. These rules determine which queues should receive the message based on criteria such as routing keys, message attributes, or patterns.
@@ -25,6 +25,13 @@ Exchanges come in different types, each with its own routing algorithm:
 4. **Headers Exchange**: Routes messages based on message header attributes rather than the routing key.<set the names of the queue like json>
 
 The exchange acts as a mediator between producers and queues, ensuring that messages are delivered to the appropriate destinations based on the defined routing rules. It abstracts the complexity of message routing from producers and allows for flexible and dynamic message routing within the system.
+* docker exec 14 rabbitmqctl list_exchanges
+## for create Exchange(declar):
+create exchange you should use the declar:
+1) docker exec -it 14 rabbitmqadmin declare exchange name=send_email_events --vhost=customers  type=topic -u afshin -p 123456 durable=true
+if  rabbitmqadmin is error you can use:
+1.1) curl -i -u afshin:123456 -H "content-type:application/json" -XPUT http://localhost:15672/api/exchanges/customers/send_email_events -d'{"type":"topic","durable":true}'
+after the create you should give the permission for the Exchange the you create.
 
 ## What is Channel:
 
@@ -73,6 +80,10 @@ for adding:
 
 DELETE USER ==>
 1) docker exec 14 rabbitmqctl delete_yser "afshin".
+## what is durable:
+if a queue is not durable,all messages will be lost if RabbitMQ is shut down for any reason.
+for test you can write a code and in code you can specified it and after that: docker restart rabbitmq
+if durable is not True all message is destroy.
 ## What is RoundRobin:
 it is look like the Load Balancing.
 it Distribution the request to multi service .
