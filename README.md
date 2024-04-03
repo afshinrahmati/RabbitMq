@@ -32,6 +32,9 @@ create exchange you should use the declar:
 if  rabbitmqadmin is error you can use:
 1.1) curl -i -u afshin:123456 -H "content-type:application/json" -XPUT http://localhost:15672/api/exchanges/customers/send_email_events -d'{"type":"topic","durable":true}'
 after the create you should give the permission for the Exchange the you create.
+## DELETE exchnage
+1) docker exec 14 rabbitmqctl list_exchanges
+2) rabbitmqctl delete_exchange <exchange_name>
 
 ## What is Channel:
 
@@ -55,6 +58,10 @@ You can use one Channel for everything. However, if you have multiple threads, i
 . docker exec 149 rabbitmq-plugins disable rabbitmq_management
 
 
+## what is exclusive:
+when you want to ensure that only a single consumer is processing messages from a queue.
+1) true ==>  it means that only the connection that created the queue can access and use it. Once the connection that declared the queue is closed (either intentionally or due to a failure), the queue will be deleted. true means that only the connection that created the consumer can consume messages from the queue. If another connection attempts to consume from the same queue, it will receive an error.
+2) false ==> 
 ## What is Ack:
 when the consumer reciev the data from Queue say to producer i get it and you can delete it from your self
 * befor you dont set it in your code:
@@ -70,7 +77,7 @@ rabbitmqctl set_permissions -p <vhost_name> <username> ".*" ".*" ".*"
 
 2) rabbitmqctl:
 * it is for  managing RabbitMq nodes   and add user ,....
-2.1) Add user in RabbitMq:
+2.1) Add user in RabbitMq:<LIST>
 *  docker exec 14 rabbitmqctl list_users
 for adding:
 1) u can go to localhost:15672 and step Admin and add user.
@@ -79,7 +86,7 @@ for adding:
 2) give for which vHost ==> docker exec 14 rabbitmqctl set_permissions -p "/" "afshin" ".*" ".*" ".*" ==> 1) * ==> config ,Write,Read
 
 DELETE USER ==>
-1) docker exec 14 rabbitmqctl delete_yser "afshin".
+1) docker exec 14 rabbitmqctl delete_user "afshin".
 ## what is durable:
 if a queue is not durable,all messages will be lost if RabbitMQ is shut down for any reason.
 for test you can write a code and in code you can specified it and after that: docker restart rabbitmq
@@ -105,3 +112,12 @@ Both of them shoudl set on header.
 
 https://www.youtube.com/watch?v=Zc2mQSQXoS4&list=PLlameCF3cMEthFSEZkS2ySnjvGg9OJ85X
 https://www.youtube.com/watch?v=APfWkfkjRj8
+
+1) create user and get vhost and permission
+2) create declare docker exec -it 14 rabbitmqadmin declare exchange name=send_email_events --vhost=customers  type=topic -u afshin -p 123456 durable=true 
+or 2) docker exec -it 14 rabbitmqadmin declare exchange name=send_email_events --vhost=customers  type=topic -u afshin -p 123456 durable=true
+if  rabbitmqadmin is error you can use:
+1.1) curl -i -u afshin:123456 -H "content-type:application/json" -XPUT http://localhost:15672/api/exchanges/customers/send_email_events -d'{"type":"topic","durable":true}'
+
+. curl -i -u afshin:afvsa9899 -H "content-type:application/json" -XPUT http://localhost:15672/api/exchanges/send/send_email_events -d'{"type":"topic","durable":true}'
+.. vhost:send,declar:send_email_evevne

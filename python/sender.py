@@ -10,7 +10,7 @@ import time
 # delivery_mode=2 ,#it say ,save the data on Disk(2) if lose you accese to it or in Ram(1) temporary,]
 # user_id="10" 
 
-credentials = pika.PlainCredentials("afshin","123456")
+credentials = pika.PlainCredentials("guest","guest")
 connection = pika.BlockingConnection(pika.ConnectionParameters(host="localhost",credentials=credentials))
 
 channel = connection.channel()
