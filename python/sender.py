@@ -11,7 +11,7 @@ import time
 # user_id="10" 
 
 credentials = pika.PlainCredentials("guest","guest")
-connection = pika.BlockingConnection(pika.ConnectionParameters(host="localhost",credentials=credentials))
+connection = pika.BlockingConnection(pika.ConnectionParameters(host="localhost",credentials=credentials,virtual_host="send"))
 
 channel = connection.channel()
 
@@ -21,22 +21,22 @@ channel.basic_qos(prefetch_count=1)
 
 
 # just send for One Consumer if you want send for any queue you should learn Exchnage
-channel.queue_declare(queue='one')
+# channel.queue_declare(queue='send_email_event')
 
-channel.basic_publish(exchange='',routing_key="one",body="Hello Python",properties=pika.BasicProperties(headers={"name":"afshin"}))
-print("Sending is succuess ...!")
+# channel.basic_publish(exchange='',routing_key="send_email_event",body="Hello Python",properties=pika.BasicProperties(headers={"name":"afshin"}))
+# print("Sending is succuess ...!")
 
 
-channel.queue_declare(queue='two')
+channel.queue_declare(queue='send_email_event')
 
-channel.basic_publish(exchange='',routing_key="two",body="Hello NodeJs")
+channel.basic_publish(exchange='',routing_key="send_email_event",body="Hello NodeJs")
 print("Sending is succuess ...!")
 
 
 
 # Exchange ==> fanout<all queue>
-channel.exchange_declare(exchange="logs",exchange_type="fanout")
-channel.basic_publish(exchange="logs",routing_key="",body="it is for all")
+channel.exchange_declare(exchange="logs",exchange_type="")
+channel.basic_publish(exchange="logs",routing_key="send_email_event",body="it is for all")
 
 #
 

@@ -1,9 +1,9 @@
 import pika
 
-conection = pika.BlockingConnection(pika.ConnectionParameters(host="localhost"))
+conection = pika.BlockingConnection(pika.ConnectionParameters(host="localhost",virtual_host="send"))
 
-channel = conection.channel()
-channel.queue_declare(queue="one")
+channel = conection.channel() 
+channel.queue_declare(queue="send_email_event")
 
 
 def callback(ch,method,properties,body):
@@ -12,7 +12,7 @@ def callback(ch,method,properties,body):
     # set handi for ack that the consumenr say to producer is recive it delete the queue
     # ch.basic_ack(delivery_tag=method.delivery_tag)
 #auto_ack ==> consumer : ireceive it please deleted it. 
-channel.basic_consume(queue="one",on_message_callback=callback,auto_ack=True)    
+channel.basic_consume(queue="send_email_event",on_message_callback=callback,auto_ack=True)    
 print("Waiting for message,to exit press ctrl+c")
 
 

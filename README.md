@@ -1,5 +1,6 @@
 # RabbitMq
-How work rabbitMQ? RabbitMq is a MessageBrocker
+How work rabbitMQ? RabbitMq is a MessageBrocker.
+docker run -d --name my-rabbit -p 5672:5672 -p 15672:15672 rabbitmq:3.13-management
 # what is messageBrocker ?
 it is an intermediary computer program that create communication between system or application by managing the transfer of the data(messages) between them.
 * we set for all operation 
@@ -121,3 +122,75 @@ if  rabbitmqadmin is error you can use:
 
 . curl -i -u afshin:afvsa9899 -H "content-type:application/json" -XPUT http://localhost:15672/api/exchanges/send/send_email_events -d'{"type":"topic","durable":true}'
 .. vhost:send,declar:send_email_evevne
+
+
+101) docker exec rabbitmq rabbitmqctl add_user afshin secret
+102) docker exec rabbitmq rabbitmqctl set_user_tags afshin administrator
+103) docker exec rabbitmq rabbitmqctl delete_user guest
+<!-- CREAT ViHost -->
+104) docker exec rabbitmq rabbitmqctl add_vhost email-provider
+$==> after you create visualHost you should give permistion<withPhoto>.
+105) docker execr abbitmq rabbitmqctl set_permissions -p email-provider<vhostnaem Or "/"> afshin<username> ".*" ".*" ".*"
+106) you should create Queue <queue_declare> in your Code
+<remmeber we are not send message on queue and we are send message on exchnage>
+107) create Exchnage ==> docker exec c59 rabbitmqadmin declare exchange --vhost=email-provider name=email_events type=topic -u afshin -p afvsa9899 durable=true
+108) now get permission to exchnage and user for topic_exchange read and write access.
+docker exec c59 rabbitmqctl set_topic_permissions -p email-provider afshin email_events "^email-provider.*" "^email-provider.*" <email-provider.*> for biding name <"email-provider.create.*">
+** Exchange =biding=> Queue <Bindings: Bindings are rules that connect exchanges to queues>
+
+109) publishing messgae
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+کی از سوال های محبوب مصاحبه بک اند: فرق Kafka و RabbitMQ چیه؟
+
+۱. Performance and Scalability
+کافگا برای throughput بالا و horizontal scalability ساخته شده است. هرچند RabbitMQ پرفرمنس بالایی دارد وقتی throughput و حجم داده زیاد باشد کافگا مناسب تر است.
+
+۲. Message Ordering
+در RabbitMQ در یک صف ترتیب پیام ها حفظ می‌شود. در کافگا در یک پارتیشن ترتیب پیام های یک topic حفظ می‌شود اما نه در پارتیشن های مختلف.
+
+۳. Message Priority
+در RabbitMQ از اولویت پیام ها پشتیبانی می‌شود که اجازه می‌دهد پیام های با اولویت بالا زودتر پردازش شوند. کافگا از اولویت پشتیبانی نمی‌کند.
+
+۴. Message Model
+مدل پیام های RabbitMQ مبتنی بر صف است و از پروتکل AMPQ تبعیت می‌کند اما کافگا مدل لاگ توزیع شده دارد.
+
+۵. Durability:
+برای اینکه پیام ها Durable باشند یعنی اگر failure رخ دهد از بین نروند، در RabbitMQ نیاز به تنظیمات است اما کافگا به طور درونی از این مورد پشتیبانی می‌کند.
+
+۶. Message Routing
+در Rabbit برای مسیریابی پیام ها پیشرفته تر و با استفاده از exchange و binding انجام می‌شود اما در کافگا ابتدایی تر و با استفاده از topic و پارتیشن ها انجام می‌شود.
+
+۷. Replication
+در Rabbit برای replication می توان از Mirrored Queue استفاده کرد. و کافگا نیز به صورت درونی از partition replication پشتیبانی می‌کند.
+
+8. Stream Processing
+هر دو کافگا و Rabbit از پردازش Stream پشتیبانی می کنند.
+
+9. Latency
+طراحی RabbitMQ برای تاخیر کم است و در جایی که نیاز به پردازش نزدیک به realtime است، استفاده می‌شود.
+
+10. License
+لایسنس Rabbit از نوع Mozilla Public License و لایسنس کافگا از نوع 2.0 Apache است.
+
+
+تمرین عملی: یک اپلیکیشن چت بنویسید که چند نمونه از بک اند بالا باشد و هر کلاینت به یک بک اند وصل شود و از طریق کافگا یا RabbitMQ بک اند ها رو با هم sync کنید.
+
+شما در تیمتون از چه سیستم پیام رسانی توزیع شده استفاده می کنید؟ در کامنت ها برامون مزیت هاشون رو برامون بنویسید.
+
+
