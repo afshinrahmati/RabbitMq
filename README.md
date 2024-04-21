@@ -129,17 +129,19 @@ if  rabbitmqadmin is error you can use:
 103) docker exec rabbitmq rabbitmqctl delete_user guest
 <!-- CREAT ViHost -->
 104) docker exec rabbitmq rabbitmqctl add_vhost email-provider
-$==> after you create visualHost you should give permistion<withPhoto>.
+$==> after you create visualHost you should give permistion and the user acess it<withPhoto>.
 105) docker execr abbitmq rabbitmqctl set_permissions -p email-provider<vhostnaem Or "/"> afshin<username> ".*" ".*" ".*"
-106) you should create Queue <queue_declare> in your Code
-<remmeber we are not send message on queue and we are send message on exchnage>
-107) create Exchnage ==> docker exec c59 rabbitmqadmin declare exchange --vhost=email-provider name=email_events type=topic -u afshin -p afvsa9899 durable=true
+% <!-- CREAT Queue -->
+106) you should create Queue <queue_declare> in your Code declare that mean i am exist and you can count on me
+<remmeber we are not send message on queue and we are send message on exchnage so we should first create Exchnage>
+% <!-- Connect queue to exchnage with binding name=<exchnage name in> -->
+107) create Exchnage <declare> ==> docker exec c59 rabbitmqadmin declare exchange --vhost=email-provider name=email_events type=topic -u afshin -p afvsa9899 durable=true
 108) now get permission to exchnage and user for topic_exchange read and write access.
 docker exec c59 rabbitmqctl set_topic_permissions -p email-provider afshin email_events "^email-provider.*" "^email-provider.*" <email-provider.*> for biding name <"email-provider.create.*">
 ** Exchange =biding=> Queue <Bindings: Bindings are rules that connect exchanges to queues>
 
 109) publishing messgae
-
+<CONSUM>
 
 
 
