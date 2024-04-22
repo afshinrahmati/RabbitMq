@@ -132,16 +132,21 @@ if  rabbitmqadmin is error you can use:
 $==> after you create visualHost you should give permistion and the user acess it<withPhoto>.
 105) docker execr abbitmq rabbitmqctl set_permissions -p email-provider<vhostnaem Or "/"> afshin<username> ".*" ".*" ".*"
 % <!-- CREAT Queue -->
-106) you should create Queue <queue_declare> in your Code declare that mean i am exist and you can count on me
+106) you should create Queue <queue_declare> queue_declare in your Code declare that mean i am exist and you can count on me if i amnot i can exist automaticly
 <remmeber we are not send message on queue and we are send message on exchnage so we should first create Exchnage>
-% <!-- Connect queue to exchnage with binding name=<exchnage name in> -->
-107) create Exchnage <declare> ==> docker exec c59 rabbitmqadmin declare exchange --vhost=email-provider name=email_events type=topic -u afshin -p afvsa9899 durable=true
+% <!-- create exchnage -->
+107) create Exchnage <declare> Or with your code with clinet.exchange_declare ==> docker exec c59 rabbitmqadmin declare exchange --vhost=email-provider name=email_events type=topic -u afshin -p afvsa9899 durable=true
 108) now get permission to exchnage and user for topic_exchange read and write access.
 docker exec c59 rabbitmqctl set_topic_permissions -p email-provider afshin email_events "^email-provider.*" "^email-provider.*" <email-provider.*> for biding name <"email-provider.create.*">
+% <!-- Connect queue to exchnage with binding name=<exchnage name in> -->
+109 ) with code and it happen with queue cause queue binding the exchnage
+QueueBind ,queue_bind
 ** Exchange =biding=> Queue <Bindings: Bindings are rules that connect exchanges to queues>
 
-109) publishing messgae
+110) publishing messgae or Send<for publish messaag just need exchnage and dont matter queue> and routin key define in there
 <CONSUM>
+
+*if you want create exchnage every momount you can use code exchna_declare But one time and on it better create with terminal
 
 
 

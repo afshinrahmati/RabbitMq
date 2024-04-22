@@ -26,6 +26,7 @@ channel = connection.channel()
 # channel.basic_publish(exchange='',routing_key="send_email_event",body="Hello Python",properties=pika.BasicProperties(headers={"name":"afshin"}))
 # print("Sending is succuess ...!")
 
+#  for send just need:1) exchange declare and and define routinKey when publis message  but in consum define in queue
 
 #1) Fanout (j=just exchnage delerar) **<Dont need routinKey and Queue cauause it send to all queue> 
 # channel.exchange_declare(exchange="fanout-python",exchange_type="fanout")
@@ -55,19 +56,19 @@ channel = connection.channel()
 
 
 # 4) direct <just declare>
-# channel.exchange_declare(exchange="pythone-direct",exchange_type="direct")
-# message = "direct afshin python..."
-# channel.basic_publish(exchange="pythone-direct",routing_key="red",body=message)
-# print("send in direct ....")
+channel.exchange_declare(exchange="pythone-direct",exchange_type="direct")
+message = "direct afshin python..."
+channel.basic_publish(exchange="pythone-direct",routing_key="red",body=message)
+print("send in direct ....")
 
 # 5 ) exchnage to exchnage <it exhnage_binding>
-channel.exchange_declare(exchange="first-exchange",exchange_type="direct")
-channel.exchange_declare(exchange="second-exchnage" , exchange_type="fanout")
-# first messgae go to "second-exchnage", then go to "first-exchange"
-channel.exchange_bind("second-exchnage","first-exchange")
-channel.basic_publish(exchange="first-exchange" , routing_key="" , body="afshin Yellow")
+# channel.exchange_declare(exchange="first-exchange",exchange_type="direct")
+# channel.exchange_declare(exchange="second-exchnage" , exchange_type="fanout")
+# # first messgae go to "second-exchnage", then go to "first-exchange"
+# channel.exchange_bind("second-exchnage","first-exchange")
+# channel.basic_publish(exchange="first-exchange" , routing_key="" , body="afshin Yellow")
 
-print("exhnage it oky .. ")
+# print("exhnage it oky .. ")
 
 
 connection.close()
