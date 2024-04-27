@@ -2,8 +2,73 @@
 How work rabbitMQ? RabbitMq is a MessageBrocker.
 docker run -d --name my-rabbit -p 5672:5672 -p 15672:15672 rabbitmq:3.13-management
 # what is messageBrocker ?
+A message broker is software that enables applications, systems and services to communicate with each other and exchange information.
 it is an intermediary computer program that create communication between system or application by managing the transfer of the data(messages) between them.
 * we set for all operation 
+
+# Message broker models:
+1) Publish/Subscribe (Pub/Sub):
+In this message distribution pattern, often referred to as “pub/sub,” the producer of each message publishes it to a topic, and multiple message consumers subscribe to topics from which they want to receive messages. All messages published to a topic are distributed to all the applications subscribed to it. This is a broadcast-style distribution method, in which there is a one-to-many relationship between the message’s publisher and its consumers. If, for example, an airline were to disseminate updates about the landing times or delay status of its flights, multiple parties could make use of the information: ground crews performing aircraft maintenance and refueling, baggage handlers, flight attendants and pilots preparing for the plane’s next trip, and the operators of visual displays notifying the public. A pub/sub messaging style would be appropriate for use in this scenario.
+In this model, publishers send messages to a topic, and subscribers receive messages from that topic.
+Publishers are not aware of the subscribers, and subscribers are not aware of the publishers.
+Subscribers can receive messages even if they were not active at the time of publication, as messages are typically persisted until delivered.
+* Apache Kafka: Kafka is a distributed streaming platform that supports the pub/sub model. It uses topics to which producers publish messages, and consumers subscribe to receive messages from those topics.
+* RabbitMQ: RabbitMQ is a messaging broker that supports various messaging patterns, including pub/sub. It uses exchanges to route messages to queues based on subscription bindings.
+
+2) Point-to-Point (P2P):
+This is the distribution pattern utilized in message queues with a one-to-one relationship between the message’s sender and receiver. Each message in the queue is sent to only one recipient and is consumed only once. Point-to-point messaging is called for when a message must be acted upon only one time. Examples of suitable use cases for this messaging style include payroll and financial transaction processing. In these systems, both senders and receivers need a guarantee that each payment will be sent once and once only.
+
+In this model, messages are sent from a sender (producer) to a specific recipient (consumer), known as a queue.
+Each message is consumed by exactly one consumer.
+Once a message is consumed, it is typically removed from the queue.
+* Apache ActiveMQ: ActiveMQ is an open-source message broker that supports the point-to-point messaging model. It uses queues, where producers send messages to and consumers receive messages from.
+3) Request/Response:
+This model involves a sender (client) sending a request message to a receiver (server), which processes the request and sends a response message back to the sender.
+The sender typically waits for a response before continuing its operation.
+* gRPC: gRPC is a high-performance RPC (Remote Procedure Call) framework developed by Google. It enables request/response communication between distributed systems using Protocol Buffers as the interface definition language (IDL).
+# Message brokers vs. APIs:
+
+What is a message broker?
+A message broker is software that enables applications, systems and services to communicate with each other and exchange information.
+
+The message broker does this by translating messages between formal messaging protocols. This allows interdependent services to “talk” with one another directly, even if they were written in different languages or implemented on different platforms.
+
+Message brokers are software modules within messaging middleware or message-oriented middleware (MOM) solutions. This type of middleware provides developers with a standardized means of handling the flow of data between an application’s components so that they can focus on its core logic. It can serve as a distributed communications layer that allows applications spanning multiple platforms to communicate internally.
+
+Message brokers can validate, store, route, and deliver messages to the appropriate destinations. They serve as intermediaries between other applications, allowing senders to issue messages without knowing where the receivers are, whether or not they are active, or how many of them there are. This facilitates decoupling of processes and services within systems.
+
+In order to provide reliable message storage and guaranteed delivery, message brokers often rely on a substructure or component called a message queue that stores and orders the messages until the consuming applications can process them. In a message queue, messages are stored in the exact order in which they were transmitted and remain in the queue until receipt is confirmed.
+
+Asynchronous messaging refers to the type of inter-application communication that message brokers make possible. It prevents the loss of valuable data and enables systems to continue functioning even in the face of the intermittent connectivity or latency issues common on public networks. Asynchronous messaging guarantees that messages will be delivered once (and once only) in the correct order relative to other messages.
+
+Message brokers may comprise queue managers to handle the interactions between multiple message queues, as well as services providing data routing, message translation, persistence, and client state management functionalities.
+
+Guide
+Guide to enterprisewide intelligent automation
+Learn how intelligent automation can make your business operations a competitive advantage.
+
+Related content
+Register for the guide on observability
+
+Message broker models
+Message brokers offer two basic message distribution patterns or messaging styles:
+
+Point-to-point messaging: This is the distribution pattern utilized in message queues with a one-to-one relationship between the message’s sender and receiver. Each message in the queue is sent to only one recipient and is consumed only once. Point-to-point messaging is called for when a message must be acted upon only one time. Examples of suitable use cases for this messaging style include payroll and financial transaction processing. In these systems, both senders and receivers need a guarantee that each payment will be sent once and once only.
+Publish/subscribe messaging: In this message distribution pattern, often referred to as “pub/sub,” the producer of each message publishes it to a topic, and multiple message consumers subscribe to topics from which they want to receive messages. All messages published to a topic are distributed to all the applications subscribed to it. This is a broadcast-style distribution method, in which there is a one-to-many relationship between the message’s publisher and its consumers. If, for example, an airline were to disseminate updates about the landing times or delay status of its flights, multiple parties could make use of the information: ground crews performing aircraft maintenance and refueling, baggage handlers, flight attendants and pilots preparing for the plane’s next trip, and the operators of visual displays notifying the public. A pub/sub messaging style would be appropriate for use in this scenario.
+
+Message brokers in cloud architectures
+Cloud-native applications are built to take advantage of the inherent benefits of cloud computing, including flexibility, scalability, and rapid deployment. These applications are made up of small, discrete, reusable components called microservices. Each microservice is deployed and can run independently of the others. This means that any one of them can be updated, scaled, or restarted without affecting other services in the system. Often packaged in containers, microservices work together to comprise a whole application, though each has its own stack, including a database and data model that may be different from the others.
+
+Microservices must have a means of communicating with one another in order to operate in concert. Message brokers are one mechanism they use to create this shared communications backbone.
+
+Message brokers are often used to manage communications between on-premises systems and cloud components in hybrid cloud environments. Using a message broker gives increased control over interservice communications, ensuring that data is sent securely, reliably, and efficiently between the components of an application. Message brokers can play a similar role in integrating multicloud environments, enabling communication between workloads and runtimes residing on different platforms. They’re also well suited for use in serverless computing, in which individual cloud-hosted services run on demand on a per-request basis.
+
+Message brokers vs. APIs
+REST APIs are commonly used for communications between microservices. The term Representational State Transfer (REST) defines a set of principles and constraints that developers can follow when building web services. Any services that adhere to them will be able to communicate via a set of uniform shared stateless operators and requests. Application Programming Interface (API) denotes the underlying code that, if it conforms to REST rules, allows the services to talk to one another.
+
+REST APIs use Hypertext Transfer Protocol (HTTP) to communicate. Because HTTP is the standard transport protocol of the public Internet, REST APIs are widely known, frequently used, and broadly interoperable. HTTP is a request/response protocol, however, so it is best used in situations that call for a synchronous request/reply. This means that services making requests via REST APIs must be designed to expect an immediate response. If the client receiving the response is down, the sending service will be blocked while it awaits the reply. Failover and error handling logic should be built into both services.
+
+Message brokers enable asynchronous communications between services so that the sending service need not wait for the receiving service’s reply. This improves fault tolerance and resiliency in the systems in which they’re employed. In addition, the use of message brokers makes it easier to scale systems since a pub/sub messaging pattern can readily support changing numbers of services. Message brokers also keep track of consumers’ states.
 ### Message Queue:
 • a message broker often operates on the concept of a message Queue.
 • Application or Service send messages to a queue and other application can retrieve and process those message from the queue.
@@ -125,6 +190,7 @@ if  rabbitmqadmin is error you can use:
 
 
 101) docker exec rabbitmq rabbitmqctl add_user afshin secret
+<!-- <docker exec c5 rabbitmqctl list_users> -->
 102) docker exec rabbitmq rabbitmqctl set_user_tags afshin administrator
 103) docker exec rabbitmq rabbitmqctl delete_user guest
 <!-- CREAT ViHost -->

@@ -26,19 +26,20 @@ channel = connection.channel()
 # channel.basic_publish(exchange='',routing_key="send_email_event",body="Hello Python",properties=pika.BasicProperties(headers={"name":"afshin"}))
 # print("Sending is succuess ...!")
 
-#  for send just need:1) exchange declare and and define routinKey when publis message  but in consum define in queue
+#  ** for send just need:1) exchange declare and and define routinKey when publis message  but in consum define in queue
 
-#1) Fanout (j=just exchnage delerar) **<Dont need routinKey and Queue cauause it send to all queue> 
-# channel.exchange_declare(exchange="fanout-python",exchange_type="fanout")
-# channel.basic_publish(exchange="fanout-python",routing_key="",body="FanOut..Python")
-# print("Sending is succuess Fanout ...!")
+# 1) Fanout (j=just exchnage delerar) **<Dont need routinKey and Queue cauause it send to all queue> 
+channel.exchange_declare(exchange="fanout-final-test",exchange_type="fanout")
+channel.basic_publish(exchange="fanout-final-test",routing_key="test",body="FanOut..Afshin")
+
+print("Sending is succuess Fanout ...!")
 
 
 #2) Topic (just exchnage declare and routing_key in publish) <like path like==> red.gree.yellow>
 # channel.exchange_declare(exchange="python_topic",exchange_type="topic")
 # messages = {
-#     'error.warning.important' : 'this is an important message',
-#     'info.debug.notimportant': 'this is no important message'
+#     'igap.name.afshin' : 'my name is afshin',
+#     'igap.lastname.rahmati': 'my lastname is rahmati'
 # }
 # for k,v in messages.items():
 #     channel.basic_publish(exchange="python_topic",routing_key=k,body=v)
@@ -56,10 +57,11 @@ channel = connection.channel()
 
 
 # 4) direct <just declare>
-channel.exchange_declare(exchange="pythone-direct",exchange_type="direct")
-message = "direct afshin python..."
-channel.basic_publish(exchange="pythone-direct",routing_key="red",body=message)
-print("send in direct ....")
+
+# channel.exchange_declare(exchange="test-final",exchange_type="direct")
+# message = "direct afshin python..."
+# channel.basic_publish(exchange="test-final",routing_key="blue",body=message)
+# print("send in direct ....")
 
 # 5 ) exchnage to exchnage <it exhnage_binding>
 # channel.exchange_declare(exchange="first-exchange",exchange_type="direct")
@@ -70,5 +72,5 @@ print("send in direct ....")
 
 # print("exhnage it oky .. ")
 
-
+time.sleep(10)  # Wait for 10 seconds
 connection.close()
